@@ -182,10 +182,12 @@ Interactive API documentation: **http://localhost:8000/docs** when the API is ru
 
 ## Deployment
 
-- **API:** Deploy to [Render](https://render.com) (or similar). Build: `pip install -r requirements.txt`. Start: `uvicorn api.main:app --host 0.0.0.0 --port $PORT`. Add all API env vars.
-- **Web app:** Build with `npm run build` in `web/`. Deploy the `web/dist` folder to [Vercel](https://vercel.com), [Netlify](https://netlify.com), or any static host. Set `VITE_API_BASE_URL` to your deployed API URL at build time.
-- **Database:** Use your Supabase project in production; keep `DATABASE_URL` in the API environment.
-- **Images:** Cloudinary is used in both dev and prod; set the same Cloudinary env vars in production.
+**Free deployment (GitHub + Render + Vercel + Supabase + Cloudinary):** see **[DEPLOYMENT.md](./DEPLOYMENT.md)** for step-by-step instructions.
+
+- **API:** [Render](https://render.com) — Build: `pip install -r requirements.txt`. Start: `uvicorn api.main:app --host 0.0.0.0 --port $PORT`. Optional: use `render.yaml` blueprint.
+- **Web app:** [Vercel](https://vercel.com) or [Netlify](https://netlify.com) — Root: `web`, build: `npm run build`, set `VITE_API_BASE_URL` to your API URL.
+- **Database:** [Supabase](https://supabase.com) — Set `DATABASE_URL` in the API environment.
+- **Images:** [Cloudinary](https://cloudinary.com) — Set Cloudinary env vars in the API environment (required for production; local dev can use `./uploads/`).
 
 ---
 

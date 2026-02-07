@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Check, RefreshCw, CloudSun, Clock, PartyPopper } from "lucide-react";
 import {
   getRecommendations,
+  imageUrl,
   EVENTS,
   WEATHER_OPTIONS,
   TIME_OPTIONS,
@@ -30,7 +31,7 @@ function SuggestionCard({ suggestion, index }: { suggestion: Suggestion; index: 
     >
       <div className="relative aspect-square overflow-hidden">
         <img
-          src={suggestion.clothing.image_url}
+          src={imageUrl(suggestion.clothing.image_url)}
           alt={suggestion.clothing.clothing_type}
           className="h-full w-full object-cover"
         />

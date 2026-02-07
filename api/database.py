@@ -14,12 +14,13 @@ from api.config import settings
 
 logger = logging.getLogger(__name__)
 
-engine = create_engine(
-    settings.database_url,
-    # Verify connections before use to handle stale connections
-    # This is important for free-tier databases that may drop idle connections
-    pool_pre_ping=True,
-)
+# SQLite needs check_same_thread=False for FastAPI's async/threading model
+_engine_kwargs = {"pool_pre_ping": True}
+if settings.database_url.startswith("sqlite"):
+    _engine_kwargs["connect_args"] = {"check_same_thread": False}
+    _engine_kwargs["pool_pre_ping"] = False  # not used for SQLite
+
+engine = create_engine(settings.database_url, **_engine_kwargs)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

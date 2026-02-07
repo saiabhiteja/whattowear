@@ -5,6 +5,7 @@ import { Plus, Shirt, X, RefreshCw, Filter } from "lucide-react";
 import {
   getAllClothing,
   uploadClothing,
+  imageUrl,
   CLOTHING_TYPES,
   OCCASIONS,
   SEASONS,
@@ -37,7 +38,7 @@ function ClothingCard({ item }: { item: ClothingItem }) {
     >
       <div className="relative aspect-square overflow-hidden">
         <img
-          src={item.image_url}
+          src={imageUrl(item.image_url)}
           alt={item.clothing_type}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />

@@ -20,6 +20,9 @@ build/
 # SQLite local database
 *.db
 
+# Local image uploads (when not using Cloudinary)
+uploads/
+
 # IDE
 .vscode/
 .idea/

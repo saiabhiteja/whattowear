@@ -1,0 +1,26 @@
+# Render Blueprint: Style Savvy API
+# Deploy from GitHub: https://dashboard.render.com/blueprints
+# Connect repo and Render will create the web service from this file.
+
+services:
+  - type: web
+    name: style-savvy-api
+    runtime: python
+    region: oregon
+
+    # Build
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+
+    # Env vars – set in Render Dashboard (Environment) or link to secret files
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: DEBUG
+        value: "false"

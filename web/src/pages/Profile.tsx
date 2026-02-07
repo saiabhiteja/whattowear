@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Camera, RefreshCw, User, Palette, Droplets } from "lucide-react";
-import { getUserProfile, uploadPhoto } from "@/lib/api";
+import { getUserProfile, uploadPhoto, imageUrl } from "@/lib/api";
 import FileUpload from "@/components/FileUpload";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -63,7 +63,7 @@ export default function Profile() {
           <div className="flex flex-col items-center gap-6 rounded-2xl bg-card p-8 shadow-card sm:flex-row sm:items-start">
             <div className="relative">
               <img
-                src={profile.photo_url}
+                src={imageUrl(profile.photo_url)}
                 alt="Your face"
                 className="h-36 w-36 rounded-2xl object-cover shadow-md"
               />

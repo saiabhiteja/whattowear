@@ -1,5 +1,11 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
+/** Use for image/photo URLs from the API; supports both full URLs and local paths (e.g. /uploads/...). */
+export function imageUrl(url: string): string {
+  if (!url) return "";
+  return url.startsWith("http") ? url : `${BASE_URL.replace(/\/$/, "")}${url.startsWith("/") ? url : `/${url}`}`;
+}
+
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${url}`, options);
   if (!res.ok) {

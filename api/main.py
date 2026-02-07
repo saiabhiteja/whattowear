@@ -5,10 +5,12 @@ Initializes the FastAPI application, configures logging,
 sets up the database, and registers all route modules.
 """
 import logging
+from pathlib import Path
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from api.config import settings, setup_logging
 from api.database import init_db
@@ -27,6 +29,8 @@ async def lifespan(application: FastAPI):
     Using lifespan instead of deprecated on_event decorator.
     """
     init_db()
+    # Ensure uploads dir exists for local image storage (when Cloudinary not used)
+    Path("uploads").mkdir(exist_ok=True)
     logger.info("Application started successfully")
     yield
     logger.info("Application shutting down")
@@ -59,6 +63,9 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    # Serve locally uploaded images (when Cloudinary is not configured)
+    application.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
     # Register route modules
     application.include_router(user_routes.router)
