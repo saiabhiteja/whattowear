@@ -26,8 +26,10 @@ class Settings(BaseSettings):
     debug: bool = False
 
     class Config:
+        # .env is optional (e.g. on Render, use Environment tab only)
         env_file = ".env"
         env_file_encoding = "utf-8"
+        extra = "ignore"  # ignore unknown env vars
 
 
 def setup_logging() -> None:

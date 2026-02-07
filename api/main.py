@@ -65,6 +65,9 @@ def create_app() -> FastAPI:
     )
 
     # Serve locally uploaded images (when Cloudinary is not configured)
+    # Create uploads dir before mounting (required on Render; lifespan runs later)
+    uploads_dir = Path("uploads")
+    uploads_dir.mkdir(exist_ok=True)
     application.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
     # Register route modules
